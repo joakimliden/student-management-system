@@ -26,4 +26,14 @@ public class StudentService {
     public Student getById(Long id) {
         return entityManager.find(Student.class, id);
     }
+
+    public void update(Long id, Student student) {
+        Student newStudent = getById(id);
+        newStudent.setFirstName(student.getFirstName());
+        newStudent.setLastName(student.getLastName());
+        newStudent.setEmail(student.getEmail());
+        newStudent.setPhoneNumber(student.getPhoneNumber());
+        entityManager.merge(newStudent);
+    }
+
 }

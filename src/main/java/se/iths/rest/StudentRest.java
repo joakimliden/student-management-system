@@ -35,4 +35,11 @@ public class StudentRest {
         Student student = studentService.getById(id);
         return Response.ok(student).build();
     }
+
+    @Path("{id}")
+    @PUT
+    public Response update(@PathParam("id") Long id, Student student) {
+        studentService.update(id, student);
+        return Response.ok(student).build();
+    }
 }
