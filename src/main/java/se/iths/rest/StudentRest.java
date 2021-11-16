@@ -42,4 +42,11 @@ public class StudentRest {
         studentService.update(id, student);
         return Response.ok(student).build();
     }
+
+    @Path("{id}")
+    @DELETE
+    public Response delete(@PathParam("id") Long id) {
+        studentService.delete(id);
+        return Response.ok(id + " deleted").build(); //TODO snygga till
+    }
 }
