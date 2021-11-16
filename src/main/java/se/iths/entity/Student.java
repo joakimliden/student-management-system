@@ -4,6 +4,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
 
 @Entity
 public class Student {
@@ -11,11 +13,11 @@ public class Student {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-//    @NotNull
+    @NotNull
     private String firstName;
-//    @NotNull
+    @NotNull
     private String lastName;
-//    @Email
+    @Email
     private String email;
     private String phoneNumber;
 
