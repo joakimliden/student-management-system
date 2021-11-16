@@ -22,4 +22,8 @@ public class StudentService {
                 "SELECT s from Student s", Student.class)
                 .getResultList();
     }
+
+    public Student getById(Long id) {
+        return entityManager.find(Student.class, id);
+    }
 }

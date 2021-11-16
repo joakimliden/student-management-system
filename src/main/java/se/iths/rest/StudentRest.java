@@ -30,4 +30,11 @@ public class StudentRest {
         List<Student> students = studentService.getAll();
         return Response.ok(students).build();
     }
+
+    @Path("{id}")
+    @GET
+    public Response getById(@PathParam("id") Long id) {
+        Student student = studentService.getById(id);
+        return Response.ok(student).build();
+    }
 }
