@@ -17,6 +17,7 @@ public class Student {
     private String firstName;
     @NotNull
     private String lastName;
+    @NotNull
     @Email
     private String email;
     private String phoneNumber;

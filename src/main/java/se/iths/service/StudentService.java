@@ -27,13 +27,13 @@ public class StudentService {
         return entityManager.find(Student.class, id);
     }
 
-    public void update(Long id, Student student) {
-        Student newStudent = getById(id);
-        newStudent.setFirstName(student.getFirstName());
-        newStudent.setLastName(student.getLastName());
-        newStudent.setEmail(student.getEmail());
-        newStudent.setPhoneNumber(student.getPhoneNumber());
-        entityManager.merge(newStudent);
+    public void update(Long id, Student current) {
+        Student update = getById(id);
+        update.setFirstName(current.getFirstName());
+        update.setLastName(current.getLastName());
+        update.setEmail(current.getEmail());
+        update.setPhoneNumber(current.getPhoneNumber());
+        entityManager.merge(update);
     }
 
     public void delete(Long id) {
