@@ -21,13 +21,10 @@ public class StudentRest {
     @POST
     public Response create(Student student) {
         studentService.create(student);
-        return Response.created(URI.create("/student-management-system/api/v1/students/" + student.getId())).build();
-        /*return Response.created(
-                URI.create("/student-management-system/api/v1/students/"
-                + student.getId()))
-                .build();*/
-//        return Response.status(Response.Status.CREATED).build();
-//        return Response.ok(student).build(); //TODO 201 created
+        return Response
+                .created(URI.create("/student-management-system/api/v1/students/" + student
+                .getId()))
+                .build();
     }
 
     @GET
@@ -38,7 +35,7 @@ public class StudentRest {
         return Response.ok(students).build();
     }
 
-    @Path("{id}") //TODO exception if id not found
+    @Path("{id}")
     @GET
     public Response getById(@PathParam("id") Long id) {
         Student student = studentService.getById(id);
