@@ -24,14 +24,13 @@ public class StudentRest {
         return Response
                 .created(URI.create("/student-management-system/api/v1/students/" + student
                 .getId()))
+                .entity(student)
                 .build();
     }
 
     @GET
     public Response getAll() {
         List<Student> students = studentService.getAll();
-        if (students.isEmpty())
-            return Response.noContent().build();
         return Response.ok(students).build();
     }
 
@@ -39,32 +38,27 @@ public class StudentRest {
     @GET
     public Response getById(@PathParam("id") Long id) {
         Student student = studentService.getById(id);
-        if (student == null)
-            return Response.status(Response.Status.NOT_FOUND).build();
-        else
-            return Response.ok(student).build();
+        return Response.ok(student).build();
     }
 
-    @Path("{id}") //TODO exception if id not found
+    @Path("{id}")
     @PUT
     public Response update(@PathParam("id") Long id, Student student) {
         studentService.update(id, student);
-        return Response.ok(student).build(); // 200 OK
+        return Response.ok(student).build();
     }
 
-    @Path("{id}") // TODO exception if id not found
+    @Path("{id}")
     @DELETE
     public Response delete(@PathParam("id") Long id) {
         studentService.delete(id);
-        return Response.noContent().build(); // 204 NO CONTENT
+        return Response.noContent().build();
     }
 
-    @Path("lastname") // TODO exception if lastname not found
+    @Path("lastname")
     @GET
     public Response getByLastName(@QueryParam("lastName") String lastName) {
         List<Student> students = studentService.getByLastName(lastName);
-        if (students.isEmpty())
-            return Response.noContent().build();
         return Response.ok(students).build();
     }
 }
