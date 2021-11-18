@@ -1,6 +1,7 @@
 package se.iths.rest;
 
 import se.iths.entity.Student;
+import se.iths.exception.CreateStudentException;
 import se.iths.service.StudentService;
 
 import javax.inject.Inject;
@@ -44,7 +45,11 @@ public class StudentRest {
     @Path("{id}")
     @PUT
     public Response update(@PathParam("id") Long id, Student student) {
-        studentService.update(id, student);
+        try {
+            studentService.update(id, student);
+        } catch (Exception e) {
+            throw new CreateStudentException("firstName, lastName, email are mandatory and not filled correct");
+        }
         return Response.ok(student).build();
     }
 

@@ -42,14 +42,12 @@ public class StudentService {
 
     public void update(Long id, Student updatedStudent) {
         Student student = getById(id);
-        try {
-            student.setFirstName(updatedStudent.getFirstName());
-            student.setLastName(updatedStudent.getLastName());
-            student.setEmail(updatedStudent.getEmail());
-            student.setPhoneNumber(updatedStudent.getPhoneNumber());
-        } catch (ConstraintViolationException e) {
-            throw new CreateStudentException(mandatoryFieldsString);
-        }
+
+        student.setFirstName(updatedStudent.getFirstName());
+        student.setLastName(updatedStudent.getLastName());
+        student.setEmail(updatedStudent.getEmail());
+        student.setPhoneNumber(updatedStudent.getPhoneNumber());
+
         entityManager.merge(student);
     }
 
