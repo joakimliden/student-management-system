@@ -2,8 +2,8 @@ package se.iths.rest;
 
 import se.iths.entity.Student;
 import se.iths.exception.CreateStudentException;
+import se.iths.exception.DataNotFoundException;
 import se.iths.service.StudentService;
-
 import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -45,6 +45,9 @@ public class StudentRest {
     @Path("{id}")
     @PUT
     public Response update(@PathParam("id") Long id, Student student) {
+        if (studentService.getStudent(id) == null)
+            throw new DataNotFoundException("Student with id " + id + " not found");
+
         try {
             studentService.update(id, student);
         } catch (Exception e) {

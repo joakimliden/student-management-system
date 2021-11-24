@@ -17,13 +17,11 @@ public class StudentService {
     @PersistenceContext
     EntityManager entityManager;
 
-    String mandatoryFieldsString = "firstName, lastName, email are mandatory and not filled correct";
-
     public void create(Student student) {
         try {
             entityManager.persist(student);
         } catch (Exception e) {
-            throw new CreateStudentException(mandatoryFieldsString);
+            throw new CreateStudentException("firstName, lastName, email are mandatory and not filled correct");
         }
     }
 
@@ -56,7 +54,7 @@ public class StudentService {
         entityManager.remove(student);
     }
 
-    private Student getStudent(Long id) {
+    public Student getStudent(Long id) {
         Student student = entityManager.find(Student.class, id);
         if (student == null)
             throw new DataNotFoundException("Student with id " + id + " not found");
