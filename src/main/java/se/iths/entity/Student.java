@@ -3,9 +3,7 @@ package se.iths.entity;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -44,7 +42,7 @@ public class Student {
     public Student() {
     }
 
-    //end region
+    //endregion
 
     public void addSubject(Subject subject) {
         boolean added = subjects.add(subject);

@@ -1,10 +1,9 @@
 package se.iths.entity;
 
+import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -34,7 +33,7 @@ public class Subject {
     public Subject() {
     }
 
-    //end region
+    //endregion
 
     public void addStudent(Student student) {
         boolean added = students.add(student);
@@ -68,6 +67,7 @@ public class Subject {
         this.topic = topic;
     }
 
+    @JsonbTransient
     public Teacher getTeacher() {
         return teacher;
     }
@@ -76,6 +76,7 @@ public class Subject {
         this.teacher = teacher;
     }
 
+    @JsonbTransient
     public Set<Student> getStudents() {
         return students;
     }
