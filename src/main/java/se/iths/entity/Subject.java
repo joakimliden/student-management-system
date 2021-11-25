@@ -13,17 +13,17 @@ public class Subject {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
     @NotEmpty
     private String topic;
+
     @ManyToMany(mappedBy = "subjects")
     private Set<Student> students = new HashSet<>();
+
     @ManyToOne
     private Teacher teacher;
 
-/*    public void addStudent(Student student) {
-        students.add(student);
-        student.setSubject(this);
-    }*/
+
 
     //region CONSTRUCTOR NEEDED FOR SampleDataGenerator
 
@@ -35,6 +35,20 @@ public class Subject {
     }
 
     //end region
+
+    public void addStudent(Student student) {
+        boolean added = students.add(student);
+        if (added) {
+            student.getSubjects().add(this);
+        }
+    }
+
+    public void removeSubject(Student student) {
+        boolean removed = students.remove(student);
+        if (removed) {
+            student.getSubjects().remove(this);
+        }
+    }
 
     //region Getters and Setters
 
@@ -62,7 +76,11 @@ public class Subject {
         this.teacher = teacher;
     }
 
-    public void setStudent(Set<Student> students) {
+    public Set<Student> getStudents() {
+        return students;
+    }
+
+    public void setStudents(Set<Student> students) {
         this.students = students;
     }
 

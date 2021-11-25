@@ -22,7 +22,11 @@ public class Student {
     @Email
     private String email;
     private String phoneNumber;
-    @ManyToMany
+
+    @ManyToMany(cascade = {
+            CascadeType.PERSIST,
+            CascadeType.MERGE
+    })
     @JoinTable(
             name = "SUBJECT_STUDENT",
             joinColumns = @JoinColumn(name = "STUDENT_ID"),
@@ -41,6 +45,20 @@ public class Student {
     }
 
     //end region
+
+    public void addSubject(Subject subject) {
+        boolean added = subjects.add(subject);
+        if (added) {
+            subject.getStudents().add(this);
+        }
+    }
+
+    public void removeSubject(Subject subject) {
+        boolean removed = subjects.remove(subject);
+        if (removed) {
+            subject.getStudents().remove(this);
+        }
+    }
 
     //region Getters and Setters
     public Long getId() {
@@ -83,13 +101,12 @@ public class Student {
         this.phoneNumber = phoneNumber;
     }
 
-    public void setSubject(Set<Subject> subjects) {
-        this.subjects = subjects;
+    public Set<Subject> getSubjects() {
+        return subjects;
     }
 
-    public void addSubject(Subject subject) {
-        subjects.add(subject);
-        subject.setStudent((Set<Student>) this);
+    public void setSubjects(Set<Subject> subjects) {
+        this.subjects = subjects;
     }
 
     //endregion
