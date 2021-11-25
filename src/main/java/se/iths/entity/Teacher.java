@@ -4,12 +4,10 @@ import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Entity
-public class Student {
+public class Teacher {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -22,25 +20,22 @@ public class Student {
     @Email
     private String email;
     private String phoneNumber;
-    @ManyToMany
-    @JoinTable(
-            name = "SUBJECT_STUDENT",
-            joinColumns = @JoinColumn(name = "STUDENT_ID"),
-            inverseJoinColumns = @JoinColumn(name = "SUBJECT_ID"))
-    private Set<Subject> subjects = new HashSet<>();
+    @OneToMany(mappedBy = "teacher", cascade = CascadeType.ALL)
+    private List<Subject> subjects = new ArrayList<>();
 
-    //region CONSTRUCTOR NEEDED FOR SampleDataGenerator
+    public void addSubject(Subject subject) {
+        subjects.add(subject);
+        subject.setTeacher(this);
+    }
 
-    public Student(String firstName, String lastName, String email) {
+    public Teacher() {}
+
+    public Teacher(String firstName, String lastName, String email, String phoneNumber) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
+        this.phoneNumber = phoneNumber;
     }
-
-    public Student() {
-    }
-
-    //end region
 
     //region Getters and Setters
     public Long getId() {
@@ -82,15 +77,5 @@ public class Student {
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
-
-    public void setSubject(Set<Subject> subjects) {
-        this.subjects = subjects;
-    }
-
-    public void addSubject(Subject subject) {
-        subjects.add(subject);
-        subject.setStudent((Set<Student>) this);
-    }
-
     //endregion
 }
