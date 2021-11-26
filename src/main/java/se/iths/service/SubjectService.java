@@ -4,6 +4,7 @@ import se.iths.entity.Subject;
 import se.iths.exception.DataNotFoundException;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import java.util.List;
@@ -31,12 +32,13 @@ public class SubjectService {
     }
 
     public Subject getBySubject(String subject) {
-        Subject allInfoSubject = entityManager
-                .createQuery("SELECT s FROM Subject s WHERE s.topic = :subject", Subject.class)
-                .setParameter("subject", subject)
-                .getSingleResult();
-        if (allInfoSubject == null)
+        try {
+            return entityManager
+                    .createQuery("SELECT s FROM Subject s WHERE s.topic = :subject", Subject.class)
+                    .setParameter("subject", subject)
+                    .getSingleResult();
+        } catch (NoResultException e) {
             throw new DataNotFoundException("Subject " + subject + " does not exist");
-        return allInfoSubject;
+        }
     }
 }

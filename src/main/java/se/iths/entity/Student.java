@@ -11,6 +11,7 @@ import java.util.Set;
 @JsonbPropertyOrder({
         "firstName",
         "lastName",
+        "phoneNumber",
         "email"
 })
 @Entity
