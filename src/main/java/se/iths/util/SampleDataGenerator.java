@@ -35,9 +35,6 @@ public class SampleDataGenerator {
         Teacher bert = new Teacher("Bert", "Stjärt", "bert@mail.com", "0701234567");
         Teacher berta = new Teacher("Berta", "Stjärta", "berta@mail.com", "0701234567");
 
-//        mathematics.addStudent(joakim);
-//        mathematics.setTeacher(bert);
-
         bert.addSubject(mathematics);
         bert.addSubject(gymnastic);
         berta.addSubject(biology);
@@ -52,9 +49,6 @@ public class SampleDataGenerator {
         jonny.addSubject(mathematics);
         benny.addSubject(english);
         sonny.addSubject(english);
-
-//        mathematics.addStudent(joakim);
-//        mathematics.addTeacher(bert);
 
         entityManager.persist(joakim);
         entityManager.persist(conny);

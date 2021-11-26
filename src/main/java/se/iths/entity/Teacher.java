@@ -48,6 +48,7 @@ public class Teacher {
     }
 
     //region Getters and Setters
+
     public Long getId() {
         return id;
     }

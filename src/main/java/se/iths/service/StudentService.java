@@ -7,8 +7,6 @@ import se.iths.exception.DataNotFoundException;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
-import javax.transaction.TransactionalException;
-import javax.validation.ConstraintViolationException;
 import java.util.List;
 
 @Transactional

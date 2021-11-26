@@ -23,13 +23,6 @@ public class SubjectRest {
         return Response.ok(subjects).build();
     }
 
-    /*@Path("{id}")
-    @GET
-    public Response getById(@PathParam("id") Long id) {
-        Subject subject = subjectService.getById(id);
-        return Response.ok(subject).build();
-    }*/
-
     @Path("{subject}")
     @GET
     public Response getAllInfo(@PathParam("subject") String subject) {

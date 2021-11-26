@@ -15,13 +15,6 @@ public class SubjectService {
     @PersistenceContext
     EntityManager entityManager;
 
-    /*public Subject getById(Long id) {
-        Subject subject = entityManager.find(Subject.class, id);
-        if (subject == null)
-            throw new DataNotFoundException("Subject with id " + id + " not found");
-        return subject;
-    }*/
-
     public List<Subject> getAll() {
         List<Subject> subjects = entityManager
                 .createQuery("SELECT s FROM Subject s", Subject.class)

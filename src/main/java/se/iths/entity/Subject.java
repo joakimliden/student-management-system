@@ -1,7 +1,6 @@
 package se.iths.entity;
 
 import javax.json.bind.annotation.JsonbPropertyOrder;
-import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import java.util.HashSet;
@@ -36,30 +35,11 @@ public class Subject {
     private Teacher teacher;
 
 
-
-    //region CONSTRUCTOR NEEDED FOR SampleDataGenerator
-
     public Subject(String topic) {
         this.topic = topic;
     }
 
     public Subject() {
-    }
-
-    //endregion
-
-    public void addStudent(Student student) {
-        boolean added = students.add(student);
-        if (added) {
-            student.getSubjects().add(this);
-        }
-    }
-
-    public void removeSubject(Student student) {
-        boolean removed = students.remove(student);
-        if (removed) {
-            student.getSubjects().remove(this);
-        }
     }
 
     //region Getters and Setters
@@ -80,8 +60,6 @@ public class Subject {
         this.topic = topic;
     }
 
-    /** tar man bort denna kukar det ur **/
-//    @JsonbTransient
     public Teacher getTeacher() {
         return teacher;
     }
@@ -90,8 +68,6 @@ public class Subject {
         this.teacher = teacher;
     }
 
-    /** tar man bort denna kukar det ur **/
-//    @JsonbTransient
     public Set<Student> getStudents() {
         return students;
     }
@@ -101,6 +77,4 @@ public class Subject {
     }
 
     //endregion
-
-
 }

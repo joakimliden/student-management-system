@@ -32,7 +32,6 @@ public class Student {
     @ManyToMany(mappedBy = "students")
     private Set<Subject> subjects = new HashSet<>();
 
-    //region CONSTRUCTOR NEEDED FOR SampleDataGenerator
 
     public Student(String firstName, String lastName, String email) {
         this.firstName = firstName;
@@ -43,19 +42,10 @@ public class Student {
     public Student() {
     }
 
-    //endregion
-
     public void addSubject(Subject subject) {
         boolean added = subjects.add(subject);
         if (added) {
             subject.getStudents().add(this);
-        }
-    }
-
-    public void removeSubject(Subject subject) {
-        boolean removed = subjects.remove(subject);
-        if (removed) {
-            subject.getStudents().remove(this);
         }
     }
 
