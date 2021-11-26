@@ -1,11 +1,18 @@
 package se.iths.entity;
 
+import javax.json.bind.annotation.JsonbPropertyOrder;
+import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import java.util.HashSet;
 import java.util.Set;
 
+@JsonbPropertyOrder({
+        "firstName",
+        "lastName",
+        "email"
+})
 @Entity
 public class Student {
 
@@ -21,14 +28,7 @@ public class Student {
     private String email;
     private String phoneNumber;
 
-    @ManyToMany(cascade = {
-            CascadeType.PERSIST,
-            CascadeType.MERGE
-    })
-    @JoinTable(
-            name = "SUBJECT_STUDENT",
-            joinColumns = @JoinColumn(name = "STUDENT_ID"),
-            inverseJoinColumns = @JoinColumn(name = "SUBJECT_ID"))
+    @ManyToMany(mappedBy = "students")
     private Set<Subject> subjects = new HashSet<>();
 
     //region CONSTRUCTOR NEEDED FOR SampleDataGenerator
@@ -99,6 +99,7 @@ public class Student {
         this.phoneNumber = phoneNumber;
     }
 
+    @JsonbTransient
     public Set<Subject> getSubjects() {
         return subjects;
     }

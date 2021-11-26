@@ -1,11 +1,20 @@
 package se.iths.entity;
 
+import javax.json.bind.annotation.JsonbPropertyOrder;
+import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import java.util.ArrayList;
 import java.util.List;
 
+@JsonbPropertyOrder({
+        "firstName",
+        "lastName",
+        "phoneNumber",
+        "email"
+
+})
 @Entity
 public class Teacher {
 
@@ -78,5 +87,15 @@ public class Teacher {
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
+
+    @JsonbTransient
+    public List<Subject> getSubjects() {
+        return subjects;
+    }
+
+    public void setSubjects(List<Subject> subjects) {
+        this.subjects = subjects;
+    }
+
     //endregion
 }

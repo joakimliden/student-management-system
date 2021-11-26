@@ -1,11 +1,17 @@
 package se.iths.entity;
 
+import javax.json.bind.annotation.JsonbPropertyOrder;
 import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import java.util.HashSet;
 import java.util.Set;
 
+@JsonbPropertyOrder({
+        "topic",
+        "teacher",
+        "students"
+})
 @Entity
 public class Subject {
 
@@ -16,7 +22,14 @@ public class Subject {
     @NotEmpty
     private String topic;
 
-    @ManyToMany(mappedBy = "subjects")
+    @ManyToMany(cascade = {
+            CascadeType.PERSIST,
+            CascadeType.MERGE
+    })
+    @JoinTable(
+            name = "SUBJECT_STUDENT",
+            joinColumns = @JoinColumn(name = "STUDENT_ID"),
+            inverseJoinColumns = @JoinColumn(name = "SUBJECT_ID"))
     private Set<Student> students = new HashSet<>();
 
     @ManyToOne
@@ -67,7 +80,8 @@ public class Subject {
         this.topic = topic;
     }
 
-    @JsonbTransient
+    /** tar man bort denna kukar det ur **/
+//    @JsonbTransient
     public Teacher getTeacher() {
         return teacher;
     }
@@ -76,7 +90,8 @@ public class Subject {
         this.teacher = teacher;
     }
 
-    @JsonbTransient
+    /** tar man bort denna kukar det ur **/
+//    @JsonbTransient
     public Set<Student> getStudents() {
         return students;
     }
